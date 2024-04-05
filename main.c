@@ -10,7 +10,12 @@ typedef uint32_t u32;
 #define MINA '%'
 #define TERRA '#'
 
-uint8_t table[12][12];
+u8 table[12][12];
+
+u32 ismina(u32 i, u32 j) {
+  return (0 <= i && i <= count(table) - 1) &&
+         (0 <= j && j <= count(table[i]) - 1) && table[i][j] == MINA;
+}
 
 void init() {
   // Inizio
@@ -30,19 +35,19 @@ void init() {
   // Numera
   for (u32 i = 0; i < count(table); i++) {
     for (u32 j = 0; j < count(table[i]); j++) {
-      if(table[i][j] == MINA){
+      if (table[i][j] == MINA) {
         continue;
       }
-      u8 mine = 0;
-      mine += i > 0                && j > 0                   && table[i-1][j-1] == MINA;
-      mine += i > 0                &&                            table[i-1][j  ] == MINA;
-      mine += i > 0                && j > count(table[i]) - 1 && table[i-1][j+1] == MINA;
-      mine += i < count(table) - 1 && j > 0                   && table[i+1][j-1] == MINA;
-      mine += i < count(table) - 1 &&                            table[i+1][j  ] == MINA;
-      mine += i < count(table) - 1 && j > count(table[i]) - 1 && table[i+1][j+1] == MINA;
-      mine +=                         j > 0                   && table[i  ][j-1] == MINA;
-      mine +=                         j > count(table[i]) - 1 && table[i  ][j+1] == MINA;
-      table[i][j] = '0' + mine;
+      table[i][j] = '0'
+       + ismina(i-1,j-1)
+       + ismina(i-1,j  )
+       + ismina(i-1,j+1)
+       + ismina(i  ,j-1)
+       + ismina(i  ,j+1)
+       + ismina(i+1,j-1)
+       + ismina(i+1,j  )
+       + ismina(i+1,j+1);
+      
     }
   }
   // Maschera
@@ -66,7 +71,7 @@ void print_table() {
   printf("\n");
 }
 
-void scopri_table(){
+void scopri_table() {
   for (u32 i = 0; i < count(table); i++) {
     for (u32 j = 0; j < count(table[i]); j++) {
       printf("   %c", table[i][j] & 127);
@@ -83,6 +88,6 @@ int main(int argc, char **argv) {
   srand(time(NULL));
   init();
   scopri_table();
-  //print_table();
+  // print_table();
   return 0;
 }
