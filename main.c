@@ -6,36 +6,37 @@
 typedef uint8_t u8;
 typedef uint32_t u32;
 
+#define RIGHE 12
+#define COLONNE 12
+
 #define MINA '%'
 #define TERRA '.'
 
 #define count(a) (sizeof(a) / sizeof(a[0]))
 
-#define for_table for(u32 i = 0; i < count(table); i++) for (u32 j = 0; j < count(table[i]); j++)
-
 u8 table[12][12] = {};
 
 u8 bound_check(u32 i, u32 j) {
-  return (0 <= i && i <= count(table) - 1) &&
-         (0 <= j && j <= count(table[i]) - 1);
+  return (0 <= i && i <= RIGHE - 1) &&
+         (0 <= j && j <= COLONNE - 1);
 }
 
 u32 ismina(u32 i, u32 j) { return bound_check(i, j) && table[i][j] == MINA; }
 
 void init() {
   // Inizio
-  for (u32 i = 0; i < count(table); i++) {
-    for (u32 j = 0; j < count(table[i]); j++) {
+  for (u32 i = 0; i < RIGHE; i++) {
+    for (u32 j = 0; j < COLONNE; j++) {
       table[i][j] = '0';
     }
   }
   // Mina
   for (u32 mine = 0; mine < 24; mine++) {
-    table[rand() % count(table)][rand() % count(table[0])] = MINA;
+    table[rand() % RIGHE][rand() % COLONNE] = MINA;
   }
   // Numera
-  for (u32 i = 0; i < count(table); i++) {
-    for (u32 j = 0; j < count(table[i]); j++) {
+  for (u32 i = 0; i < RIGHE; i++) {
+    for (u32 j = 0; j < COLONNE; j++) {
       if (table[i][j] == MINA) {
         continue;
       }
@@ -46,21 +47,21 @@ void init() {
     }
   }
   // Maschera
-  for (u32 i = 0; i < count(table); i++) {
-    for (u32 j = 0; j < count(table[i]); j++) {
+  for (u32 i = 0; i < RIGHE; i++) {
+    for (u32 j = 0; j < COLONNE; j++) {
       table[i][j] += 128;
     }
   }
 }
 
 void print_table() {
-  for (u32 i = 0; i < count(table); i++) {
-    for (u32 j = 0; j < count(table[i]); j++) {
+  for (u32 i = 0; i < RIGHE; i++) {
+    for (u32 j = 0; j < COLONNE; j++) {
       printf("   %c", (table[i][j] & 128) ? TERRA : table[i][j]);
     }
     printf("  %02d\n", i);
   }
-  for (u32 i = 0; i < count(table); i++) {
+  for (u32 i = 0; i < RIGHE; i++) {
     printf("  %02d", i);
   }
   printf("\n");
@@ -98,8 +99,8 @@ int main(int argc, char **argv) {
     scanf("%d", &j);
     if (scopri_cella(i, j) == MINA) {
       printf("BOOM!\n");
-      for (u32 i = 0; i < count(table); i++) {
-        for (u32 j = 0; j < count(table[i]); j++) {
+      for (u32 i = 0; i < RIGHE; i++) {
+        for (u32 j = 0; j < COLONNE; j++) {
           if ((table[i][j] & 127) == MINA) {
             table[i][j] &= 127;
           }
