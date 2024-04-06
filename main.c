@@ -76,7 +76,7 @@ void scopri_table() {
   printf("\n");
 }
 
-u8 scopri_cella(u32 i, u32 j) {
+u8 scopri_cella(u32 depth, u32 i, u32 j) {
   if (!(bound_check(i, j) && table[i][j] & 128)) {
     return EOF;
   }
@@ -86,16 +86,26 @@ u8 scopri_cella(u32 i, u32 j) {
   }
   table[i][j] = scoperta;
   if (scoperta != '0') {
+    if(depth == 0){
+      u32 a = i - 1, b = j - 1; if(bound_check(a, b) && table[a][b] == (128 | '0')){ (void)scopri_cella(depth + 1, a, b); }
+          a = i - 1, b = j    ; if(bound_check(a, b) && table[a][b] == (128 | '0')){ (void)scopri_cella(depth + 1, a, b); }
+          a = i - 1, b = j + 1; if(bound_check(a, b) && table[a][b] == (128 | '0')){ (void)scopri_cella(depth + 1, a, b); }
+          a = i    , b = j - 1; if(bound_check(a, b) && table[a][b] == (128 | '0')){ (void)scopri_cella(depth + 1, a, b); }
+          a = i    , b = j + 1; if(bound_check(a, b) && table[a][b] == (128 | '0')){ (void)scopri_cella(depth + 1, a, b); }
+          a = i + 1, b = j - 1; if(bound_check(a, b) && table[a][b] == (128 | '0')){ (void)scopri_cella(depth + 1, a, b); }
+          a = i + 1, b = j    ; if(bound_check(a, b) && table[a][b] == (128 | '0')){ (void)scopri_cella(depth + 1, a, b); }
+          a = i + 1, b = j + 1; if(bound_check(a, b) && table[a][b] == (128 | '0')){ (void)scopri_cella(depth + 1, a, b); }
+    }
     return scoperta;
   }
-  (void)scopri_cella(i - 1, j - 1);
-  (void)scopri_cella(i - 1, j);
-  (void)scopri_cella(i - 1, j + 1);
-  (void)scopri_cella(i, j - 1);
-  (void)scopri_cella(i, j + 1);
-  (void)scopri_cella(i + 1, j - 1);
-  (void)scopri_cella(i + 1, j);
-  (void)scopri_cella(i + 1, j + 1);
+  (void)scopri_cella(depth + 1, i - 1, j - 1);
+  (void)scopri_cella(depth + 1, i - 1, j);
+  (void)scopri_cella(depth + 1, i - 1, j + 1);
+  (void)scopri_cella(depth + 1, i, j - 1);
+  (void)scopri_cella(depth + 1, i, j + 1);
+  (void)scopri_cella(depth + 1, i + 1, j - 1);
+  (void)scopri_cella(depth + 1, i + 1, j);
+  (void)scopri_cella(depth + 1, i + 1, j + 1);
   return scoperta;
 }
 
@@ -108,7 +118,7 @@ int main(int argc, char **argv) {
   // scopri_cella(4, 3);
   // scopri_cella(4, 4);
   // scopri_cella(4, 5);
-  scopri_cella(4, 6);
+  scopri_cella(0, 4, 6);
   print_table();
   return 0;
 }
