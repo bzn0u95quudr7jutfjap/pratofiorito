@@ -10,7 +10,7 @@ typedef uint32_t u32;
 #define MINA '%'
 #define TERRA '#'
 
-u8 table[12][12];
+u8 table[12][12] = {};
 
 u32 ismina(u32 i, u32 j) {
   return (0 <= i && i <= count(table) - 1) &&
