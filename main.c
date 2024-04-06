@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <curses.h>
 
 typedef uint8_t u8;
 typedef uint32_t u32;
@@ -89,7 +90,7 @@ u8 scopri_cella(u32 i, u32 j) {
   return scoperta;
 }
 
-int main(int argc, char **argv) {
+void gamemain(){
   srand(time(NULL));
   init();
   while (1) {
@@ -122,5 +123,8 @@ int main(int argc, char **argv) {
     }
     print_table();
   }
+}
+
+int main(int argc, char **argv) {
   return 0;
 }
