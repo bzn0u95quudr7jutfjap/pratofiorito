@@ -6,9 +6,12 @@
 typedef uint8_t u8;
 typedef uint32_t u32;
 
-#define count(a) (sizeof(a) / sizeof(a[0]))
 #define MINA '%'
 #define TERRA '.'
+
+#define count(a) (sizeof(a) / sizeof(a[0]))
+
+#define for_table for(u32 i = 0; i < count(table); i++) for (u32 j = 0; j < count(table[i]); j++)
 
 u8 table[12][12] = {};
 
