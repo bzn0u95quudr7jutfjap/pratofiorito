@@ -1,8 +1,8 @@
+#include <curses.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <curses.h>
 
 typedef uint8_t u8;
 typedef uint32_t u32;
@@ -90,7 +90,7 @@ u8 scopri_cella(u32 i, u32 j) {
   return scoperta;
 }
 
-void gamemain(){
+void gamemain() {
   srand(time(NULL));
   init();
   while (1) {
@@ -126,5 +126,25 @@ void gamemain(){
 }
 
 int main(int argc, char **argv) {
+  WINDOW *wnd = initscr();
+  u8 d, r = 12, c = 12;
+  clear();
+  noecho();
+  refresh();
+  move(r,c);
+  while (1) {
+    d = getch();
+    switch (d) {
+    case 'h': move(r, --c); break;
+    case 'j': move(++r, c); break;
+    case 'k': move(--r, c); break;
+    case 'l': move(r, ++c); break;
+    case 'q': goto end;
+    case 'x': delch(); insch(d); break;
+    }
+    refresh();
+  }
+end:
+  endwin();
   return 0;
 }
