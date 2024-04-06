@@ -108,6 +108,18 @@ int main(int argc, char **argv) {
       print_table();
       break;
     }
+    u32 end = 1;
+    for (u32 i = 0; i < RIGHE; i++) {
+      for (u32 j = 0; j < COLONNE; j++) {
+        if ((table[i][j] & 128) && (table[i][j] & 127) == MINA) {
+          end = 0;
+        }
+      }
+    }
+    if (end == 1) {
+      printf("VITTORIA\n");
+      break;
+    }
     print_table();
   }
   return 0;
