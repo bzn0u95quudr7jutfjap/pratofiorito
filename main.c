@@ -125,11 +125,6 @@ void gamemain() {
   }
 }
 
-#define case(value, body)                                                      \
-  case value: {                                                                \
-    body                                                                       \
-  } break;
-
 int main(int argc, char **argv) {
   WINDOW *wnd = initscr();
   u8 d, r = 0, c = 0;
@@ -140,16 +135,32 @@ int main(int argc, char **argv) {
   while (1) {
     d = getch();
     switch (d) {
-    case('h', move(r, --c);)
-    case('j', move(++r, c);)
-    case('k', move(--r, c);)
-    case('l', move(r, ++c);)
-    case('q', goto end;)
-    case('x', delch(); insch(d);)
+    case 'h':
+      move(r, --c);
+      break;
+    case 'j':
+      move(++r, c);
+      break;
+    case 'k':
+      move(--r, c);
+      break;
+    case 'l':
+      move(r, ++c);
+      break;
+    case 'q':
+        goto end;
+      break;
+    case 'x':
+      delch();
+      insch(d);
+      break;
     }
+    clear();
     refresh();
+    print_table();
+    move(r, c);
   }
 end:
-      endwin();
-      return 0;
-    }
+  endwin();
+  return 0;
+}
