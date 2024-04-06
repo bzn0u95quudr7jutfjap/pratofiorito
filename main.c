@@ -12,10 +12,12 @@ typedef uint32_t u32;
 
 u8 table[12][12] = {};
 
-u32 ismina(u32 i, u32 j) {
+u8 bound_check(u32 i, u32 j) {
   return (0 <= i && i <= count(table) - 1) &&
-         (0 <= j && j <= count(table[i]) - 1) && table[i][j] == MINA;
+         (0 <= j && j <= count(table[i]) - 1);
 }
+
+u32 ismina(u32 i, u32 j) { return bound_check(i, j) && table[i][j] == MINA; }
 
 void init() {
   // Inizio
@@ -74,10 +76,24 @@ void scopri_table() {
   printf("\n");
 }
 
+void scopri_se_zero(u32 i, u32 j) {
+  if (bound_check(i, j) && (table[i][j] & 127) != '0') {
+    return;
+  }
+}
+
+void scopri_cella(u32 i, u32 j) {
+  if (!bound_check(i, j)) {
+    return;
+  }
+  table[i][j] &= 127;
+}
+
 int main(int argc, char **argv) {
   srand(time(NULL));
   init();
-  scopri_table();
-  // print_table();
+  // scopri_table();
+  scopri_cella(4, 8);
+  print_table();
   return 0;
 }
