@@ -28,13 +28,6 @@ void init() {
   for (u32 mine = 0; mine < 24; mine++) {
     table[rand() % count(table)][rand() % count(table[0])] = MINA;
   }
-  //for (u32 i = 0; i < count(table); i++) {
-  //  for (u32 j = 0; j < count(table[i]); j++) {
-  //    if ((rand() % 10) < 3) {
-  //      table[i][j] = MINA;
-  //    }
-  //  }
-  //}
   // Numera
   for (u32 i = 0; i < count(table); i++) {
     for (u32 j = 0; j < count(table[i]); j++) {
