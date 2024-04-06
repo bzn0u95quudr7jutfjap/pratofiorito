@@ -14,7 +14,7 @@ typedef uint32_t u32;
 
 #define count(a) (sizeof(a) / sizeof(a[0]))
 
-u8 table[12][12] = {};
+u8 table[RIGHE][COLONNE] = {};
 
 u8 bound_check(u32 i, u32 j) {
   return (0 <= i && i <= RIGHE - 1) &&
