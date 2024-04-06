@@ -38,16 +38,10 @@ void init() {
       if (table[i][j] == MINA) {
         continue;
       }
-      table[i][j] = '0'
-       + ismina(i-1,j-1)
-       + ismina(i-1,j  )
-       + ismina(i-1,j+1)
-       + ismina(i  ,j-1)
-       + ismina(i  ,j+1)
-       + ismina(i+1,j-1)
-       + ismina(i+1,j  )
-       + ismina(i+1,j+1);
-      
+      table[i][j] = '0' + ismina(i - 1, j - 1) + ismina(i - 1, j) +
+                    ismina(i - 1, j + 1) + ismina(i, j - 1) + ismina(i, j + 1) +
+                    ismina(i + 1, j - 1) + ismina(i + 1, j) +
+                    ismina(i + 1, j + 1);
     }
   }
   // Maschera
