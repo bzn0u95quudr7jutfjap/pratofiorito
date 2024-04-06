@@ -89,13 +89,23 @@ u8 scopri_cella(u32 i, u32 j) {
 int main(int argc, char **argv) {
   srand(time(NULL));
   init();
-  // scopri_table();
-  // scopri_cella(4, 1);
-  // scopri_cella(4, 2);
-  // scopri_cella(4, 3);
-  // scopri_cella(4, 4);
-  // scopri_cella(4, 5);
-  scopri_cella(4, 6);
-  print_table();
+  while (1) {
+    u32 i, j;
+    scanf("%d", &i);
+    scanf("%d", &j);
+    if (scopri_cella(i, j) == MINA) {
+      printf("BOOM!\n");
+      for (u32 i = 0; i < count(table); i++) {
+        for (u32 j = 0; j < count(table[i]); j++) {
+          if ((table[i][j] & 127) == MINA) {
+            table[i][j] &= 127;
+          }
+        }
+      }
+      print_table();
+      break;
+    }
+    print_table();
+  }
   return 0;
 }
