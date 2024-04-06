@@ -76,10 +76,60 @@ void scopri_table() {
   printf("\n");
 }
 
-void scopri_se_zero(u32 i, u32 j) {
-  if (bound_check(i, j) && (table[i][j] & 127) != '0') {
+void scopri_se_zero_su(u32 i, u32 j) {
+  if (!bound_check(i, j)) {
     return;
   }
+  table[i][j] &= 127;
+
+  if ((table[i][j] & 127) != '0') {
+    return;
+  }
+  scopri_se_zero_su(i - 1, j - 1);
+  scopri_se_zero_su(i - 1, j);
+  scopri_se_zero_su(i - 1, j - 1);
+}
+
+void scopri_se_zero_so(u32 i, u32 j) {
+  if (!bound_check(i, j)) {
+    return;
+  }
+  table[i][j] &= 127;
+
+  if ((table[i][j] & 127) != '0') {
+    return;
+  }
+  scopri_se_zero_so(i + 1, j - 1);
+  scopri_se_zero_so(i + 1, j);
+  scopri_se_zero_so(i + 1, j + 1);
+}
+
+void scopri_se_zero_sx(u32 i, u32 j) {
+  if (!bound_check(i, j)) {
+    return;
+  }
+  table[i][j] &= 127;
+
+  if ((table[i][j] & 127) != '0') {
+    return;
+  }
+  scopri_se_zero_sx(i - 1, j - 1);
+  scopri_se_zero_sx(i, j - 1);
+  scopri_se_zero_sx(i + 1, j - 1);
+}
+
+void scopri_se_zero_dx(u32 i, u32 j) {
+  if (!bound_check(i, j)) {
+    return;
+  }
+  table[i][j] &= 127;
+
+  if ((table[i][j] & 127) != '0') {
+    return;
+  }
+  scopri_se_zero_dx(i - 1, j + 1);
+  scopri_se_zero_dx(i, j + 1);
+  scopri_se_zero_dx(i + 1, j + 1);
 }
 
 void scopri_cella(u32 i, u32 j) {
@@ -87,13 +137,30 @@ void scopri_cella(u32 i, u32 j) {
     return;
   }
   table[i][j] &= 127;
+  scopri_se_zero_su(i - 1, j - 1);
+  scopri_se_zero_su(i - 1, j);
+  scopri_se_zero_su(i - 1, j + 1);
+  scopri_se_zero_so(i + 1, j - 1);
+  scopri_se_zero_so(i + 1, j);
+  scopri_se_zero_so(i + 1, j + 1);
+  scopri_se_zero_sx(i - 1, j - 1);
+  scopri_se_zero_sx(i, j - 1);
+  scopri_se_zero_sx(i + 1, j - 1);
+  scopri_se_zero_dx(i - 1, j + 1);
+  scopri_se_zero_dx(i, j + 1);
+  scopri_se_zero_dx(i + 1, j + 1);
 }
 
 int main(int argc, char **argv) {
   srand(time(NULL));
   init();
   // scopri_table();
-  scopri_cella(4, 8);
+  // scopri_cella(4, 1);
+  // scopri_cella(4, 2);
+  // scopri_cella(4, 3);
+  // scopri_cella(4, 4);
+  // scopri_cella(4, 5);
+  scopri_cella(4, 6);
   print_table();
   return 0;
 }
