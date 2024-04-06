@@ -76,79 +76,27 @@ void scopri_table() {
   printf("\n");
 }
 
-void scopri_se_zero_su(u32 i, u32 j) {
-  if (!bound_check(i, j)) {
-    return;
+u8 scopri_cella(u32 i, u32 j) {
+  if (!(bound_check(i, j) && table[i][j] & 128)) {
+    return EOF;
   }
-  table[i][j] &= 127;
-
-  if ((table[i][j] & 127) != '0') {
-    return;
+  u8 scoperta = table[i][j] & 127;
+  if (scoperta == MINA) {
+    return scoperta;
   }
-  scopri_se_zero_su(i - 1, j - 1);
-  scopri_se_zero_su(i - 1, j);
-  scopri_se_zero_su(i - 1, j - 1);
-}
-
-void scopri_se_zero_so(u32 i, u32 j) {
-  if (!bound_check(i, j)) {
-    return;
+  table[i][j] = scoperta;
+  if (scoperta != '0') {
+    return scoperta;
   }
-  table[i][j] &= 127;
-
-  if ((table[i][j] & 127) != '0') {
-    return;
-  }
-  scopri_se_zero_so(i + 1, j - 1);
-  scopri_se_zero_so(i + 1, j);
-  scopri_se_zero_so(i + 1, j + 1);
-}
-
-void scopri_se_zero_sx(u32 i, u32 j) {
-  if (!bound_check(i, j)) {
-    return;
-  }
-  table[i][j] &= 127;
-
-  if ((table[i][j] & 127) != '0') {
-    return;
-  }
-  scopri_se_zero_sx(i - 1, j - 1);
-  scopri_se_zero_sx(i, j - 1);
-  scopri_se_zero_sx(i + 1, j - 1);
-}
-
-void scopri_se_zero_dx(u32 i, u32 j) {
-  if (!bound_check(i, j)) {
-    return;
-  }
-  table[i][j] &= 127;
-
-  if ((table[i][j] & 127) != '0') {
-    return;
-  }
-  scopri_se_zero_dx(i - 1, j + 1);
-  scopri_se_zero_dx(i, j + 1);
-  scopri_se_zero_dx(i + 1, j + 1);
-}
-
-void scopri_cella(u32 i, u32 j) {
-  if (!bound_check(i, j)) {
-    return;
-  }
-  table[i][j] &= 127;
-  scopri_se_zero_su(i - 1, j - 1);
-  scopri_se_zero_su(i - 1, j);
-  scopri_se_zero_su(i - 1, j + 1);
-  scopri_se_zero_so(i + 1, j - 1);
-  scopri_se_zero_so(i + 1, j);
-  scopri_se_zero_so(i + 1, j + 1);
-  scopri_se_zero_sx(i - 1, j - 1);
-  scopri_se_zero_sx(i, j - 1);
-  scopri_se_zero_sx(i + 1, j - 1);
-  scopri_se_zero_dx(i - 1, j + 1);
-  scopri_se_zero_dx(i, j + 1);
-  scopri_se_zero_dx(i + 1, j + 1);
+  (void)scopri_cella(i - 1, j - 1);
+  (void)scopri_cella(i - 1, j);
+  (void)scopri_cella(i - 1, j + 1);
+  (void)scopri_cella(i, j - 1);
+  (void)scopri_cella(i, j + 1);
+  (void)scopri_cella(i + 1, j - 1);
+  (void)scopri_cella(i + 1, j);
+  (void)scopri_cella(i + 1, j + 1);
+  return scoperta;
 }
 
 int main(int argc, char **argv) {
