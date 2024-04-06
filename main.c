@@ -17,8 +17,7 @@ typedef uint32_t u32;
 u8 table[RIGHE][COLONNE] = {};
 
 u8 bound_check(u32 i, u32 j) {
-  return (0 <= i && i <= RIGHE - 1) &&
-         (0 <= j && j <= COLONNE - 1);
+  return (0 <= i && i <= RIGHE - 1) && (0 <= j && j <= COLONNE - 1);
 }
 
 u32 ismina(u32 i, u32 j) { return bound_check(i, j) && table[i][j] == MINA; }
