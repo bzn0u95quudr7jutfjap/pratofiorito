@@ -63,19 +63,6 @@ void print_table() {
   printf("\n");
 }
 
-void scopri_table() {
-  for (u32 i = 0; i < count(table); i++) {
-    for (u32 j = 0; j < count(table[i]); j++) {
-      printf("   %c", table[i][j] & 127);
-    }
-    printf("  %02d\n", i);
-  }
-  for (u32 i = 0; i < count(table); i++) {
-    printf("  %02d", i);
-  }
-  printf("\n");
-}
-
 u8 scopri_cella(u32 i, u32 j) {
   if (!(bound_check(i, j) && table[i][j] & 128)) {
     return EOF;
