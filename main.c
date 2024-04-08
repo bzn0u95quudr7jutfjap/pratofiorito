@@ -11,6 +11,9 @@ typedef uint32_t u32;
 
 #define MINA '%'
 #define TERRA '.'
+#define VUOTO ' '
+
+#define NMINE 24
 
 #define count(a) (sizeof(a) / sizeof(a[0]))
 
@@ -30,7 +33,7 @@ void init() {
     }
   }
   // Mina
-  for (u32 mine = 0; mine < 24; mine++) {
+  for (u32 mine = 0; mine < NMINE; mine++) {
     table[rand() % RIGHE][rand() % COLONNE] = MINA;
   }
   // Numera
