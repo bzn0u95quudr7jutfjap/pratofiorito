@@ -137,7 +137,7 @@ void scopri_curses(WINDOW *wnd) {
 int main(int argc, char **argv) {
   wnd = initscr();
   init();
-  while (1) {
+  for (u32 loop = 1; loop == 1;) {
     clear();
     refresh();
     print_table();
@@ -157,14 +157,13 @@ int main(int argc, char **argv) {
       move(r, ++c);
       break;
     case 'q':
-      goto end;
+      loop = 0;
       break;
     case 'x':
       scopri_curses(wnd);
       break;
     }
   }
-end:
   endwin();
   return 0;
 }
