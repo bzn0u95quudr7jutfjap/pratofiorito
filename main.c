@@ -137,33 +137,27 @@ void scopri_curses(WINDOW *wnd) {
 int main(int argc, char **argv) {
   wnd = initscr();
   init();
-  for (u32 loop = 1; loop == 1;) {
+  while (1) {
     clear();
     refresh();
     print_table();
     d = getch();
     move(r, c);
-    switch (d) {
-    case 'h':
+    if (d == 'q') {
+      break;
+    } else if (d == 'h') {
       move(r, --c);
-      break;
-    case 'j':
+    } else if (d == 'j') {
       move(++r, c);
-      break;
-    case 'k':
+    } else if (d == 'k') {
       move(--r, c);
-      break;
-    case 'l':
+    } else if (d == 'l') {
       move(r, ++c);
-      break;
-    case 'q':
-      loop = 0;
-      break;
-    case 'x':
+    } else if (d == 'x') {
       scopri_curses(wnd);
-      break;
     }
   }
+
   endwin();
   return 0;
 }
