@@ -128,12 +128,6 @@ void gamemain() {
   }
 }
 
-void scopri_curses(WINDOW *wnd) {
-  u32 i, j;
-  getyx(wnd, i, j);
-  scopri_cella(i, j);
-}
-
 int main(int argc, char **argv) {
   wnd = initscr();
   init();
@@ -154,7 +148,9 @@ int main(int argc, char **argv) {
     } else if (d == 'l') {
       move(r, ++c);
     } else if (d == 'x') {
-      scopri_curses(wnd);
+      u32 i, j;
+      getyx(wnd, i, j);
+      scopri_cella(i, j);
     }
   }
 
