@@ -12,6 +12,9 @@ typedef uint32_t u32;
 
 #define MINA '%'
 #define TERRA '.'
+#define VUOTO ' '
+
+#define NMINE 24
 
 #define count(a) (sizeof(a) / sizeof(a[0]))
 
@@ -27,11 +30,11 @@ void init() {
   // Inizio
   for (u32 i = 0; i < RIGHE; i++) {
     for (u32 j = 0; j < COLONNE; j++) {
-      table[i][j] = '0';
+      table[i][j] = VUOTO;
     }
   }
   // Mina
-  for (u32 mine = 0; mine < 24; mine++) {
+  for (u32 mine = 0; mine < NMINE; mine++) {
     table[rand() % RIGHE][rand() % COLONNE] = MINA;
   }
   // Numera
@@ -44,6 +47,7 @@ void init() {
                     ismina(i - 1, j + 1) + ismina(i, j - 1) + ismina(i, j + 1) +
                     ismina(i + 1, j - 1) + ismina(i + 1, j) +
                     ismina(i + 1, j + 1);
+      table[i][j] = table[i][j] == '0' ? VUOTO : table[i][j];
     }
   }
   // Maschera
@@ -76,7 +80,7 @@ u8 scopri_cella(u32 i, u32 j) {
     return scoperta;
   }
   table[i][j] = scoperta;
-  if (scoperta != '0') {
+  if (scoperta != VUOTO) {
     return scoperta;
   }
   (void)scopri_cella(i - 1, j - 1);
