@@ -101,7 +101,7 @@ void gamemain() {
     scanf("%d", &i);
     scanf("%d", &j);
     if (scopri_cella(i, j) == MINA) {
-      printf("BOOM!\n");
+      printw("BOOM!\n");
       for (u32 i = 0; i < RIGHE; i++) {
         for (u32 j = 0; j < COLONNE; j++) {
           if ((table[i][j] & 127) == MINA) {
@@ -121,11 +121,17 @@ void gamemain() {
       }
     }
     if (end == 1) {
-      printf("VITTORIA\n");
+      printw("VITTORIA\n");
       break;
     }
     print_table();
   }
+}
+
+void scopri_curses(WINDOW *wnd) {
+  u32 i, j;
+  getyx(wnd, i, j);
+  scopri_cella(i, j);
 }
 
 int main(int argc, char **argv) {
