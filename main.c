@@ -129,6 +129,7 @@ void gamemain() {
 }
 
 int main(int argc, char **argv) {
+  srand(time(NULL));
   wnd = initscr();
   init();
   noecho();
