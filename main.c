@@ -29,7 +29,7 @@ void init() {
   // Inizio
   for (u32 i = 0; i < RIGHE; i++) {
     for (u32 j = 0; j < COLONNE; j++) {
-      table[i][j] = '0';
+      table[i][j] = VUOTO;
     }
   }
   // Mina
@@ -46,6 +46,7 @@ void init() {
                     ismina(i - 1, j + 1) + ismina(i, j - 1) + ismina(i, j + 1) +
                     ismina(i + 1, j - 1) + ismina(i + 1, j) +
                     ismina(i + 1, j + 1);
+      table[i][j] = table[i][j] == '0' ? VUOTO : table[i][j];
     }
   }
   // Maschera
@@ -78,7 +79,7 @@ u8 scopri_cella(u32 i, u32 j) {
     return scoperta;
   }
   table[i][j] = scoperta;
-  if (scoperta != '0') {
+  if (scoperta != VUOTO) {
     return scoperta;
   }
   (void)scopri_cella(i - 1, j - 1);
