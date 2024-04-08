@@ -131,6 +131,7 @@ void gamemain() {
 int main(int argc, char **argv) {
   wnd = initscr();
   init();
+  noecho();
   while (1) {
     clear();
     refresh();
@@ -150,7 +151,24 @@ int main(int argc, char **argv) {
     } else if (d == 'x') {
       u32 i, j;
       getyx(wnd, i, j);
-      scopri_cella(i, j);
+      if (scopri_cella(i, j) == MINA) {
+        for (u32 i = 0; i < RIGHE; i++) {
+          for (u32 j = 0; j < COLONNE; j++) {
+            if ((table[i][j] & 127) == MINA) {
+              table[i][j] &= 127;
+            }
+          }
+        }
+        clear();
+        refresh();
+        print_table();
+        move(RIGHE + 2, 0);
+        printw("BOOM!!!");
+        for (u32 d = 0; d != 'q';) {
+          d = getch();
+        }
+        break;
+      }
     }
   }
 
