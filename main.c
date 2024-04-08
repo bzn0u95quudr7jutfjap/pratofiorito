@@ -19,6 +19,8 @@ typedef uint32_t u32;
 #define count(a) (sizeof(a) / sizeof(a[0]))
 
 u8 table[RIGHE][COLONNE] = {};
+WINDOW *wnd;
+u8 d, r = 0, c = 0;
 
 u8 bound_check(u32 i, u32 j) {
   return (0 <= i && i <= RIGHE - 1) && (0 <= j && j <= COLONNE - 1);
@@ -130,14 +132,14 @@ void gamemain() {
 }
 
 int main(int argc, char **argv) {
-  WINDOW *wnd = initscr();
-  u8 d, r = 0, c = 0;
-  clear();
-  noecho();
-  refresh();
-  move(r,c);
+  wnd = initscr();
+  init();
   while (1) {
+    clear();
+    refresh();
+    print_table();
     d = getch();
+    move(r, c);
     switch (d) {
     case 'h':
       move(r, --c);
@@ -152,17 +154,12 @@ int main(int argc, char **argv) {
       move(r, ++c);
       break;
     case 'q':
-        goto end;
+      goto end;
       break;
     case 'x':
-      delch();
-      insch(d);
+      scopri_curses(wnd);
       break;
     }
-    clear();
-    refresh();
-    print_table();
-    move(r, c);
   }
 end:
   endwin();
