@@ -93,41 +93,6 @@ u8 scopri_cella(u32 i, u32 j) {
   return scoperta;
 }
 
-void gamemain() {
-  srand(time(NULL));
-  init();
-  while (1) {
-    u32 i, j;
-    scanf("%d", &i);
-    scanf("%d", &j);
-    if (scopri_cella(i, j) == MINA) {
-      printw("BOOM!\n");
-      for (u32 i = 0; i < RIGHE; i++) {
-        for (u32 j = 0; j < COLONNE; j++) {
-          if ((table[i][j] & 127) == MINA) {
-            table[i][j] &= 127;
-          }
-        }
-      }
-      print_table();
-      break;
-    }
-    u32 end = 1;
-    for (u32 i = 0; i < RIGHE; i++) {
-      for (u32 j = 0; j < COLONNE; j++) {
-        if ((table[i][j] & 128) && (table[i][j] & 127) == MINA) {
-          end = 0;
-        }
-      }
-    }
-    if (end == 1) {
-      printw("VITTORIA\n");
-      break;
-    }
-    print_table();
-  }
-}
-
 int main(int argc, char **argv) {
   srand(time(NULL));
   wnd = initscr();
