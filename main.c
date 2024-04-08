@@ -63,14 +63,11 @@ void init() {
 void print_table() {
   for (u32 i = 0; i < RIGHE; i++) {
     for (u32 j = 0; j < COLONNE; j++) {
-      printf("   %c", (table[i][j] & 128) ? TERRA : table[i][j]);
+      move(i, j);
+      printw("%c", (table[i][j] & 128) > 0 ? TERRA : table[i][j]);
     }
-    printf("  %02d\n", i);
   }
-  for (u32 i = 0; i < RIGHE; i++) {
-    printf("  %02d", i);
-  }
-  printf("\n");
+  move(r, c);
 }
 
 u8 scopri_cella(u32 i, u32 j) {
