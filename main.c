@@ -67,7 +67,6 @@ void print_table() {
       printw(" %c", (table[i][j] & 128) > 0 ? TERRA : table[i][j]);
     }
   }
-  move(r, c);
 }
 
 u8 scopri_cella(u32 i, u32 j) {
