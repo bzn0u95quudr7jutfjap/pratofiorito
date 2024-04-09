@@ -95,6 +95,9 @@ u8 scopri_cella(u32 i, u32 j) {
 int main(int argc, char **argv) {
   srand(time(NULL));
   wnd = initscr();
+inizio:
+  r = 0;
+  c = 0;
   init();
   noecho();
   while (1) {
@@ -105,6 +108,9 @@ int main(int argc, char **argv) {
     d = getch();
     if (d == 'q') {
       break;
+    }
+    if (d == 'r') {
+      goto inizio;
     } else if (d == 'h') {
       c--;
     } else if (d == 'j') {
@@ -129,6 +135,9 @@ int main(int argc, char **argv) {
         printw("BOOM!!!");
         for (u32 d = 0; d != 'q';) {
           d = getch();
+          if (d == 'r') {
+            goto inizio;
+          }
         }
         break;
       }
