@@ -5,5 +5,5 @@ a.out:main.c
 run: a.out
 	./a.out
 
-clean: run
+runclean: run
 	rm ./a.out
