@@ -102,22 +102,20 @@ int main(int argc, char **argv) {
     clear();
     refresh();
     print_table();
+    move(r, (c * 2 + 1));
     d = getch();
-    move(r, c);
     if (d == 'q') {
       break;
     } else if (d == 'h') {
-      move(r, --c);
+      c--;
     } else if (d == 'j') {
-      move(++r, c);
+      r++;
     } else if (d == 'k') {
-      move(--r, c);
+      r--;
     } else if (d == 'l') {
-      move(r, ++c);
+      c++;
     } else if (d == 'x') {
-      u32 i, j;
-      getyx(wnd, i, j);
-      if (scopri_cella(i, j) == MINA) {
+      if (scopri_cella(r, c) == MINA) {
         for (u32 i = 0; i < RIGHE; i++) {
           for (u32 j = 0; j < COLONNE; j++) {
             if ((table[i][j] & 127) == MINA) {
