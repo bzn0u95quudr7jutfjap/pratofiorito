@@ -63,8 +63,8 @@ void init() {
 void print_table() {
   for (u32 i = 0; i < RIGHE; i++) {
     for (u32 j = 0; j < COLONNE; j++) {
-      move(i, j);
-      printw("%c", (table[i][j] & 128) > 0 ? TERRA : table[i][j]);
+      move(i, j * 2);
+      printw(" %c", (table[i][j] & 128) > 0 ? TERRA : table[i][j]);
     }
   }
   move(r, c);
